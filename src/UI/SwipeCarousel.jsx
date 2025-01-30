@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
 
-const imgs = [
-  "/imgs/nature/1.jpg",
-  "/imgs/nature/2.jpg",
-  "/imgs/nature/3.jpg",
-  "/imgs/nature/4.jpg",
-  "/imgs/nature/5.jpg",
-  "/imgs/nature/6.jpg",
-  "/imgs/nature/7.jpg",
-];
-
 const ONE_SECOND = 1000;
 const AUTO_DELAY = ONE_SECOND * 10;
 const DRAG_BUFFER = 50;
@@ -22,9 +12,9 @@ const SPRING_OPTIONS = {
   damping: 50,
 };
 
-export const SwipeCarousel = () => {
-  const [imgIndex, setImgIndex] = useState(0);
-
+export const SwipeCarousel = ({ children }) => {
+  const [itemIndex, setItemIndex] = useState(0);
+  const childrenArray = React.Children.toArray(children);
   const dragX = useMotionValue(0);
 
   useEffect(() => {
@@ -32,8 +22,8 @@ export const SwipeCarousel = () => {
       const x = dragX.get();
 
       if (x === 0) {
-        setImgIndex((pv) => {
-          if (pv === imgs.length - 1) {
+        setItemIndex((pv) => {
+          if (pv === childrenArray.length - 1) {
             return 0;
           }
           return pv + 1;
@@ -42,20 +32,20 @@ export const SwipeCarousel = () => {
     }, AUTO_DELAY);
 
     return () => clearInterval(intervalRef);
-  }, []);
+  }, [childrenArray.length]);
 
   const onDragEnd = () => {
     const x = dragX.get();
 
-    if (x <= -DRAG_BUFFER && imgIndex < imgs.length - 1) {
-      setImgIndex((pv) => pv + 1);
-    } else if (x >= DRAG_BUFFER && imgIndex > 0) {
-      setImgIndex((pv) => pv - 1);
+    if (x <= -DRAG_BUFFER && itemIndex < childrenArray.length - 1) {
+      setItemIndex((pv) => pv + 1);
+    } else if (x >= DRAG_BUFFER && itemIndex > 0) {
+      setItemIndex((pv) => pv - 1);
     }
   };
 
   return (
-    <div className="relative overflow-hidden bg-neutral-950 py-8">
+    <div className="relative overflow-hidden bg-transparent py-8 w-[95%] mx-auto">
       <motion.div
         drag="x"
         dragConstraints={{
@@ -66,59 +56,52 @@ export const SwipeCarousel = () => {
           x: dragX,
         }}
         animate={{
-          translateX: `-${imgIndex * 100}%`,
+          translateX: `-${itemIndex * 100}%`,
         }}
         transition={SPRING_OPTIONS}
         onDragEnd={onDragEnd}
         className="flex cursor-grab items-center active:cursor-grabbing"
       >
-        <Images imgIndex={imgIndex} />
+        {childrenArray.map((child, idx) => (
+          <motion.div
+            key={idx}
+            animate={{
+              scale: itemIndex === idx ? 1 : 0.9,
+              opacity: itemIndex === idx ? 1 : 0.3,
+            }}
+            transition={{
+              ...SPRING_OPTIONS,
+              opacity: { duration: 0.4 }
+            }}
+            className="w-full shrink-0 px-4"
+          >
+            {child}
+          </motion.div>
+        ))}
       </motion.div>
 
-      <Dots imgIndex={imgIndex} setImgIndex={setImgIndex} />
+      <Dots itemIndex={itemIndex} setItemIndex={setItemIndex} count={childrenArray.length} />
       <GradientEdges />
     </div>
   );
 };
 
-const Images = ({ imgIndex }) => {
+const Dots = ({ itemIndex, setItemIndex, count }) => {
   return (
-    <>
-      {imgs.map((imgSrc, idx) => {
-        return (
-          <motion.div
-            key={idx}
-            style={{
-              backgroundImage: `url(${imgSrc})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-            animate={{
-              scale: imgIndex === idx ? 0.95 : 0.85,
-            }}
-            transition={SPRING_OPTIONS}
-            className="aspect-video w-screen shrink-0 rounded-xl bg-neutral-800 object-cover"
-          />
-        );
-      })}
-    </>
-  );
-};
-
-const Dots = ({ imgIndex, setImgIndex }) => {
-  return (
-    <div className="mt-4 flex w-full justify-center gap-2">
-      {imgs.map((_, idx) => {
-        return (
-          <button
-            key={idx}
-            onClick={() => setImgIndex(idx)}
-            className={`h-3 w-3 rounded-full transition-colors ${
-              idx === imgIndex ? "bg-neutral-50" : "bg-neutral-500"
-            }`}
-          />
-        );
-      })}
+    <div className="mt-8 flex w-full justify-center gap-3">
+      {Array.from({ length: count }).map((_, idx) => (
+        <motion.button
+          key={idx}
+          onClick={() => setItemIndex(idx)}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
+            idx === itemIndex 
+              ? "bg-teal-500 shadow-lg shadow-teal-500/50" 
+              : "bg-slate-600 hover:bg-slate-500"
+          }`}
+        />
+      ))}
     </div>
   );
 };
@@ -126,8 +109,8 @@ const Dots = ({ imgIndex, setImgIndex }) => {
 const GradientEdges = () => {
   return (
     <>
-      <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-r from-neutral-950/50 to-neutral-950/0" />
-      <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-l from-neutral-950/50 to-neutral-950/0" />
+      <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[15vw] max-w-[150px] bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[15vw] max-w-[150px] bg-gradient-to-l from-slate-950 via-slate-950/80 to-transparent" />
     </>
   );
 };
