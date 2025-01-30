@@ -37,7 +37,7 @@ const Hero = () => {
         backfaceVisibility: 'hidden'
       }}
     >
-      <source src="./public/Untitled design.mp4" type="video/mp4" />
+      <source src="/Untitled design.mp4" type="video/mp4" />
     </video>
   ), []);
 
