@@ -1,7 +1,6 @@
 import React from 'react'
 import { TextParallaxContent } from '../UI/TextParallaxContent'
 import AnimatedTextUnderlign from '../UI/AnimatedTextUnderlign'
-import TextPressure from '../TextAnimations/TextPressure/TextPressure'
 
 const About = () => {
   return (
@@ -10,22 +9,8 @@ const About = () => {
         imgUrl="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2671&auto=format&fit=crop"
         subheading="About Our Platform"
       >
-        <div className="mx-auto max-w-6xl px-6 pb-32 pt-16">
-          <div className="mb-12 h-[100px]">
-            <TextPressure
-              text="Where Code Meets Community"
-              flex={true}
-              alpha={false}
-              stroke={false}
-              width={true}
-              weight={true}
-              italic={true}
-              textColor="#ffffff"
-              minFontSize={36}
-            />
-          </div>
-          
-          <div className="mb-12">
+        <div className="mx-auto max-w-6xl px-6 pb-32 pt-24">
+          <div className="mb-16">
             <AnimatedTextUnderlign
               preText="Empowering "
               highlightedText="Developers"
