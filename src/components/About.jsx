@@ -1,69 +1,112 @@
 import React from 'react'
-import { TextParallaxContent } from '../UI/TextParallaxContent'
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 import AnimatedTextUnderlign from '../UI/AnimatedTextUnderlign'
 
 const About = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true
+  })
+
+  const stats = [
+    { id: 1, name: 'Active Users', value: '50K+' },
+    { id: 2, name: 'Code Snippets Shared', value: '1M+' },
+    { id: 3, name: 'Teams Collaborating', value: '10K+' },
+    { id: 4, name: 'Countries Reached', value: '150+' },
+  ]
+
   return (
-    <div className="relative bg-gradient-to-b from-slate-950 to-slate-900">
-      <TextParallaxContent
-        imgUrl="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2671&auto=format&fit=crop"
-        subheading="About Our Platform"
-      >
-        <div className="mx-auto max-w-6xl px-6 pb-32 pt-24">
-          <div className="mb-16">
+    <div id="about" className="relative bg-gradient-to-b from-slate-950 to-slate-900 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-y-16 gap-x-8 lg:grid-cols-2">
+          {/* Left Column - Content */}
+          <div className="max-w-2xl">
             <AnimatedTextUnderlign
-              preText="Empowering "
-              highlightedText="Developers"
-              postText=" Through Collaboration"
-              className="!text-4xl md:!text-5xl lg:!text-6xl !text-white"
+              preText="Why Choose "
+              highlightedText="CodeShare"
+              postText="?"
+              className="!text-3xl md:!text-4xl lg:!text-5xl !text-white mb-8"
               animate={true}
               animationInterval={2000}
             />
-          </div>
-          
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
-            <div className="col-span-1 space-y-6 md:col-span-8">
-              <p className="text-lg text-gray-300 leading-relaxed md:text-xl">
-                Our platform is built by developers, for developers. We understand the challenges
-                of modern software development and provide tools that make code sharing and
-                collaboration seamless and efficient.
-              </p>
-              <p className="text-lg text-gray-300 leading-relaxed md:text-xl">
-                With advanced AI features, real-time collaboration tools, and a vibrant
-                community of passionate developers, we're creating the future of code sharing.
-              </p>
-              <div className="pt-6">
-                <button className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-teal-500 to-teal-700 px-8 py-4 text-lg font-medium text-white transition-all hover:shadow-xl hover:shadow-teal-500/20">
-                  Join Our Community
-                  <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </button>
-              </div>
-            </div>
             
-            <div className="col-span-1 md:col-span-4">
-              <div className="rounded-2xl bg-slate-800/50 p-6 backdrop-blur-sm">
-                <h3 className="mb-4 text-xl font-semibold text-white">Why Choose Us</h3>
-                <ul className="space-y-3 text-gray-300">
-                  <li className="flex items-center">
-                    <span className="mr-2 text-teal-500">•</span>
-                    Real-time collaboration
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 text-teal-500">•</span>
-                    Advanced AI features
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 text-teal-500">•</span>
-                    Active community
-                  </li>
-                </ul>
-              </div>
+            <motion.p 
+              ref={ref}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="mt-6 text-lg leading-8 text-gray-300"
+            >
+              CodeShare revolutionizes the way developers collaborate and share code. 
+              Our platform combines cutting-edge AI technology with intuitive collaboration 
+              tools to create a seamless development experience.
+            </motion.p>
+
+            <div className="mt-10 max-w-xl space-y-8">
+              {[
+                {
+                  heading: "AI-Powered Development",
+                  description: "Leverage advanced AI to write better code faster and more efficiently."
+                },
+                {
+                  heading: "Seamless Collaboration",
+                  description: "Work together in real-time with developers from around the world."
+                },
+                {
+                  heading: "Enterprise Security",
+                  description: "Your code is protected with enterprise-grade security measures."
+                }
+              ].map((feature, index) => (
+                <motion.div
+                  key={feature.heading}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  className="relative"
+                >
+                  <dt className="inline font-semibold text-white text-lg">
+                    {feature.heading}
+                  </dt>
+                  <dd className="inline ml-3 text-gray-400">
+                    {feature.description}
+                  </dd>
+                </motion.div>
+              ))}
             </div>
+          </div>
+
+          {/* Right Column - Stats */}
+          <div className="grid grid-cols-2 gap-8 sm:gap-12">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.id}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="backdrop-blur-sm bg-slate-800/30 rounded-2xl p-8 border border-slate-700/30"
+              >
+                <motion.dt
+                  className="text-base leading-7 text-gray-300"
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ delay: index * 0.2 + 0.3 }}
+                >
+                  {stat.name}
+                </motion.dt>
+                <motion.dd
+                  className="text-2xl font-bold leading-9 tracking-tight text-white"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: index * 0.2 + 0.5 }}
+                >
+                  {stat.value}
+                </motion.dd>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </TextParallaxContent>
+      </div>
     </div>
   )
 }

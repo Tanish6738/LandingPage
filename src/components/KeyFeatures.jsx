@@ -33,7 +33,7 @@ const KeyFeatures = () => {
   ];
 
   return (
-    <div className="relative bg-gradient-to-b from-slate-900 to-slate-950">
+    <div id="features" className="relative bg-gradient-to-b from-slate-900 to-slate-950">
       <TextParallaxContent
         imgUrl="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop"
         subheading="Key Features"

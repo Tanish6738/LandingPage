@@ -34,7 +34,7 @@ const faqsData = [
 
 const FAQs = () => {
   return (
-    <div className="relative bg-gradient-to-b from-slate-900 to-slate-950 py-20">
+    <div id="faqs" className="relative bg-gradient-to-b from-slate-900 to-slate-950 py-20">
       <TextParallaxContent
         imgUrl="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2670&auto=format&fit=crop"
         subheading="Frequently Asked Questions"

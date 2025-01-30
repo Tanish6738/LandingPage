@@ -42,7 +42,7 @@ const Hero = () => {
   ), []);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
+    <div id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
       {/* Background Video with improved visibility */}
       <div className="absolute inset-0 w-full h-full">
         {videoElement}
