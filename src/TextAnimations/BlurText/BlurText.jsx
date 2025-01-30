@@ -4,7 +4,7 @@
 	30-1-2025
 */
 
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSprings, animated } from '@react-spring/web';
 
 const BlurText = ({
@@ -56,6 +56,46 @@ const BlurText = ({
     return () => observer.disconnect();
   }, [threshold, rootMargin]);
 
+  // Debounced animation update
+  const debounce = (func, wait) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  useEffect(() => {
+    // Initialize Shery effect after component mounts
+    if (typeof window.Shery !== 'undefined') {
+      window.Shery.hoverWithMediaCircle(".hover-target" /* Element to target.*/, {
+        videos: ["./public/Untitled design.mp4"],
+        style: {
+          transform: 'translate3d(0,0,0)', // Hardware acceleration
+          willChange: 'transform', // Performance hint
+          mixBlendMode: "difference",  // Adds contrast on hover
+          backgroundColor: "rgba(255, 255, 255, 0.9)", // Lighter background for better contrast
+          borderRadius: "50%",
+          width: '250px',
+          height: '250px',
+          position: 'fixed', // Keep size fixed
+          pointerEvents: 'none' // Prevent interference with text
+        },
+        throttleSpeed: 0, // Remove throttling for smoother movement
+      });
+    }
+  }, []);
+
+  const handleComplete = () => {
+    if (onAnimationComplete) {
+      onAnimationComplete();
+      // Add hover-target class after animation completes
+      if (ref.current) {
+        ref.current.classList.add('blur-text-hover');
+      }
+    }
+  };
+
   const springs = useSprings(
     elements.length,
     elements.map((_, i) => ({
@@ -66,8 +106,8 @@ const BlurText = ({
             await next(step);
           }
           animatedCount.current += 1;
-          if (animatedCount.current === elements.length && onAnimationComplete) {
-            onAnimationComplete();
+          if (animatedCount.current === elements.length) {
+            handleComplete();
           }
         }
         : animationFrom || defaultFrom,
@@ -77,12 +117,29 @@ const BlurText = ({
   );
 
   return (
-    <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
+    <p 
+      ref={ref} 
+      className={`blur-text ${className} flex flex-wrap cursor-pointer relative group`}
+      style={{
+        isolation: "isolate",
+        color: "white", // Default white text
+        mixBlendMode: "difference", // This will create the contrast effect
+        transform: 'translate3d(0,0,0)', // Enable hardware acceleration
+        backfaceVisibility: 'hidden',
+        perspective: 1000,
+        willChange: 'transform', // Optimize transitions
+        position: 'relative', // Ensure proper stacking
+        zIndex: 1 // Maintain proper layering
+      }}
+    >
       {springs.map((props, index) => (
         <animated.span
           key={index}
-          style={props}
-          className="inline-block transition-transform will-change-[transform,filter,opacity]"
+          style={{
+            ...props,
+            transition: "all 0.3s ease",
+          }}
+          className="inline-block transition-transform will-change-[transform,filter,opacity] hover:text-white"
         >
           {elements[index] === ' ' ? '\u00A0' : elements[index]}
           {animateBy === 'words' && index < elements.length - 1 && '\u00A0'}
@@ -92,4 +149,4 @@ const BlurText = ({
   );
 };
 
-export default BlurText;
+export default React.memo(BlurText); // Prevent unnecessary re-renders

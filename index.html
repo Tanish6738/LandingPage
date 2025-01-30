@@ -27,12 +27,43 @@
   <script src="https://cdn.jsdelivr.net/gh/automat/controlkit.js@master/bin/controlKit.min.js"></script>
   <script type="text/javascript" src="https://unpkg.com/sheryjs/dist/Shery.js"></script> <!-- Recommended -->
   <script>
-    Shery.mouseFollower();
-    Shery.makeMagnet(".magnet-target" /* Element to target.*/, {
-  //Parameters are optional.
-  ease: "cubic-bezier(0.23, 1, 0.320, 1)",
-  duration: 1,
-});
+    Shery.mouseFollower({
+      skew: false,
+      ease: "linear",
+      duration: 0.5,
+    });
+    
+    Shery.hoverWithMediaCircle(".hover-target", {
+      videos: ["./public/Untitled design.mp4"],
+      touchEnabled: true,
+      scale: 1,
+      centerMouse: true,
+      width: 250, // Fixed width
+      height: 250, // Fixed height
+      clipPath: 'circle(50% at 50% 50%)', // Perfect circle clip
+      mediaStyles: {
+        mixBlendMode: "exclusion",
+        backgroundColor: "#ffffff",
+        transform: 'translate3d(0,0,0)',
+        willChange: 'transform',
+        backfaceVisibility: 'hidden',
+        borderRadius: '50%', // Ensure circle shape
+        width: '250px',
+        height: '250px',
+        transition: 'transform 0.2s ease-out'
+      },
+      backgroundStyles: {
+        backgroundColor: "#ffffff",
+        mixBlendMode: "difference",
+        borderRadius: '50%'
+      },
+      throttleSpeed: 0,
+      frameRate: 60,
+      quality: 0.95,
+      optimizePerformance: true,
+      followMouse: true, // Smooth following
+      easingDuration: 0.2 // Smooth movement
+    });
   </script>
 </body>
 
