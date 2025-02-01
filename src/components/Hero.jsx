@@ -18,10 +18,6 @@ const Hero = () => {
 
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
-    // Reinitialize Shery effects if needed
-    if (typeof window.Shery !== 'undefined') {
-      window.Shery.mouseFollower();
-    }
   };
 
   const videoElement = useMemo(() => (
@@ -60,7 +56,7 @@ const Hero = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight hover-target [&>*]:mix-blend-difference"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
             />
           </div>
           

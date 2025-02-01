@@ -35,7 +35,7 @@ const KeyFeatures = () => {
   return (
     <div id="features" className="relative bg-gradient-to-b from-slate-900 to-slate-950">
       <TextParallaxContent
-        imgUrl="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop"
+        imgUrl="/new.mp4" // Optional: Replace with video background
         subheading="Key Features"
       >
         <div className="mx-auto max-w-7xl px-6 pb-32 pt-24">

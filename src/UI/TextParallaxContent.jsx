@@ -31,19 +31,36 @@ const StickyImage = ({ imgUrl }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
+  const isVideo = imgUrl?.toLowerCase().endsWith('.mp4') || imgUrl?.includes('youtube');
+
   return (
     <motion.div
       style={{
-        backgroundImage: `url(${imgUrl})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: `calc(100vh - ${IMG_PADDING * 2}px)`,
-        top: IMG_PADDING,
         scale,
       }}
       ref={targetRef}
-      className="sticky z-0 overflow-hidden rounded-3xl"
+      className="sticky z-0 overflow-hidden rounded-3xl h-[calc(100vh-24px)] top-3"
     >
+      {isVideo ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={imgUrl} type="video/mp4" />
+        </video>
+      ) : (
+        <div
+          style={{
+            backgroundImage: `url(${imgUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="absolute inset-0 w-full h-full"
+        />
+      )}
       <motion.div
         className="absolute inset-0 bg-neutral-950/70"
         style={{
