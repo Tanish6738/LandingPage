@@ -1,4 +1,3 @@
-"use client";
 import { motion } from "framer-motion";
 
 const AnimatedTextUnderlign = ({ preText, highlightedText, postText, className = "" }) => {

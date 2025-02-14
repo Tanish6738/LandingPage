@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import AnimatedTextUnderlign from '../UI/AnimatedTextUnderlign'
+import SpotlightCard from './SpotlightCard/SpotlightCard'
 
 const About = () => {
   const [ref, inView] = useInView({
@@ -84,24 +85,28 @@ const About = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="backdrop-blur-sm bg-slate-800/30 rounded-2xl p-8 border border-slate-700/30"
               >
-                <motion.dt
-                  className="text-base leading-7 text-gray-300"
-                  initial={{ opacity: 0 }}
-                  animate={inView ? { opacity: 1 } : {}}
-                  transition={{ delay: index * 0.2 + 0.3 }}
+                <SpotlightCard 
+                  className="h-full"
+                  spotlightColor="rgba(99, 102, 241, 0.15)"
                 >
-                  {stat.name}
-                </motion.dt>
-                <motion.dd
-                  className="text-2xl font-bold leading-9 tracking-tight text-white"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: index * 0.2 + 0.5 }}
-                >
-                  {stat.value}
-                </motion.dd>
+                  <motion.dt
+                    className="text-base leading-7 text-gray-300"
+                    initial={{ opacity: 0 }}
+                    animate={inView ? { opacity: 1 } : {}}
+                    transition={{ delay: index * 0.2 + 0.3 }}
+                  >
+                    {stat.name}
+                  </motion.dt>
+                  <motion.dd
+                    className="text-2xl font-bold leading-9 tracking-tight text-white"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: index * 0.2 + 0.5 }}
+                  >
+                    {stat.value}
+                  </motion.dd>
+                </SpotlightCard>
               </motion.div>
             ))}
           </div>
