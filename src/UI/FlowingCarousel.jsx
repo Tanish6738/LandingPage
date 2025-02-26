@@ -55,6 +55,29 @@ const itemVariants = {
   },
 };
 
+const CloseButton = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors duration-200 z-50"
+    aria-label="Close panel"
+  >
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      className="h-6 w-6 text-white" 
+      fill="none" 
+      viewBox="0 0 24 24" 
+      stroke="currentColor"
+    >
+      <path 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        strokeWidth={2} 
+        d="M6 18L18 6M6 6l12 12" 
+      />
+    </svg>
+  </button>
+);
+
 const FlowingCarousel = ({ items }) => {
   const [activeIndex, setActiveIndex] = useState(null);
   const containerRef = useRef(null);
@@ -103,29 +126,30 @@ const FlowingCarousel = ({ items }) => {
               mass: 1,
               duration: 0.7 
             }}
-            className="absolute top-0 right-0 w-1/2 h-full bg-slate-900/90 backdrop-blur-sm"
+            className="absolute top-0 right-0 w-full md:w-1/2 h-full bg-slate-900/90 backdrop-blur-sm"
           >
+            <CloseButton onClick={() => handleItemClick(activeIndex)} />
             <motion.div
               key={activeIndex}
-              className="p-8 h-full flex flex-col justify-center"
+              className="p-4 sm:p-6 md:p-8 h-full flex flex-col justify-center"
               variants={contentVariants}
               initial="initial"
               animate="animate"
               exit="exit"
             >
               <motion.div 
-                className="space-y-6"
+                className="space-y-4 md:space-y-6"
                 variants={contentVariants}
               >
                 <motion.h3 
                   variants={itemVariants}
-                  className="text-2xl font-bold text-white"
+                  className="text-xl sm:text-2xl font-bold text-white"
                 >
                   {items[activeIndex].question}
                 </motion.h3>
                 <motion.p 
                   variants={itemVariants}
-                  className="text-slate-300"
+                  className="text-sm sm:text-base text-slate-300"
                 >
                   {items[activeIndex].answer}
                 </motion.p>
@@ -183,14 +207,14 @@ const CarouselItem = ({ item, isActive, onClick }) => {
   return (
     <div 
       ref={itemRef}
-      className={`relative h-24 overflow-hidden cursor-pointer border-b border-slate-800
+      className={`relative h-16 sm:h-20 md:h-24 overflow-hidden cursor-pointer border-b border-slate-800
         ${isActive ? 'bg-slate-800' : 'hover:bg-slate-900'}`}
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex items-center h-full px-8">
-        <h3 className="text-xl text-white font-medium">
+      <div className="flex items-center h-full px-4 sm:px-6 md:px-8">
+        <h3 className="text-base sm:text-lg md:text-xl text-white font-medium">
           {item.question}
         </h3>
       </div>
@@ -201,9 +225,9 @@ const CarouselItem = ({ item, isActive, onClick }) => {
       >
         <div
           ref={marqueeInnerRef}
-          className="h-full flex items-center px-8"
+          className="h-full flex items-center px-4 sm:px-6 md:px-8"
         >
-          <span className="text-xl text-white font-medium">
+          <span className="text-base sm:text-lg md:text-xl text-white font-medium">
             {item.question}
           </span>
         </div>

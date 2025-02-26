@@ -40,7 +40,7 @@ const FAQs = () => {
   return (
     <div id="faqs" className="relative bg-gradient-to-b from-slate-900 to-slate-950 py-20">
       <TextParallaxContent
-        imgUrl="https://drive.google.com/file/d/1VbA01CIIG6jb5w1UwopP0fdrjYviHevT/view?usp=sharing"
+        imgUrl="/fdss.mp4"
         subheading="Frequently Asked Questions"
       >
         <div className="mx-auto max-w-[95%] px-4 pb-32 pt-24">
