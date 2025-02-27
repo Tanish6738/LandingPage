@@ -45,11 +45,11 @@ export default function Stack({
   sensitivity = 200,
   cardDimensions = {
     width: typeof window !== 'undefined' 
-      ? Math.min(window.innerWidth * 0.9, 400) // Reduced to 90% of viewport width
-      : 400,
+      ? Math.min(window.innerWidth * 0.7, 280) // Reduced size for mobile
+      : 280,
     height: typeof window !== 'undefined' 
-      ? Math.min(window.innerWidth * 0.6, 300) // Adjusted ratio for mobile
-      : 300
+      ? Math.min(window.innerWidth * 0.5, 210) // Reduced size for mobile
+      : 210
   },
   cardsData = [],
   animationConfig = { stiffness: 260, damping: 20 },
@@ -101,14 +101,13 @@ export default function Stack({
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 w-full px-4 sm:px-0">
-      <div
-        className="relative"
+    <div className="flex flex-col items-center gap-4 w-full">
+      <div 
+        className="relative w-full"
         style={{
-          width: cardDimensions.width,
+          maxWidth: cardDimensions.width,
           height: cardDimensions.height,
           perspective: 800,
-          maxWidth: '100%', // Ensure container doesn't overflow
         }}
       >
         {cards.map((card, index) => {
@@ -160,7 +159,7 @@ export default function Stack({
         })}
       </div>
       <motion.div 
-        className="w-full max-w-[90vw] sm:max-w-md mx-auto"
+        className="w-full max-w-[280px] sm:max-w-full mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         key={activeCard.id}
