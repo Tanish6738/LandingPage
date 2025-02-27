@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, useScroll } from 'framer-motion';
 import { FiArrowUpRight } from 'react-icons/fi';
 
@@ -49,6 +49,63 @@ const CardRotate = ({ children, onSendToBack, sensitivity }) => {
   );
 };
 
+// Add this hook before the Stack component
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowSize;
+};
+
+// Mobile Card Component
+const MobileCard = ({ card, isActive, onClick }) => {
+  return (
+    <motion.div
+      className={`w-full rounded-xl overflow-hidden cursor-pointer ${
+        isActive ? 'h-48' : 'h-20'
+      } transition-all duration-500 ease-in-out`}
+      onClick={onClick}
+      layout
+    >
+      <div className="relative w-full h-full">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70 z-10" />
+        <img
+          src={card.img}
+          alt={`card-${card.id}`}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
+          <h3 className="text-white font-bold text-lg">{card.title}</h3>
+          {isActive && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-gray-200 text-sm mt-2"
+            >
+              {card.description}
+            </motion.p>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 // Internal Stack Component
 const Stack = ({
   randomRotation = false,
@@ -60,7 +117,26 @@ const Stack = ({
 }) => {
   const [cards, setCards] = useState(cardsData);
   const [activeCard, setActiveCard] = useState(cards[cards.length - 1]);
+  const { width } = useWindowSize();
+  const isMobile = width < 768; // Define mobile breakpoint
 
+  // Mobile layout
+  if (isMobile) {
+    return (
+      <div className="w-full space-y-4">
+        {cards.map((card) => (
+          <MobileCard
+            key={card.id}
+            card={card}
+            isActive={activeCard.id === card.id}
+            onClick={() => setActiveCard(card)}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  // Desktop layout (existing code)
   const sendToBack = (id) => {
     setCards((prev) => {
       const newCards = [...prev];
