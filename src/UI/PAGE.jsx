@@ -296,7 +296,14 @@ const CustomPage = ({
   features = [],
   highlights = [],
   stackConfig = {
-    cardDimensions: { width: 400, height: 300 },
+    cardDimensions: {
+      width: typeof window !== 'undefined' 
+        ? Math.min(window.innerWidth * 0.85, 400) // Responsive width
+        : 400,
+      height: typeof window !== 'undefined'
+        ? Math.min(window.innerWidth * 0.6, 300) // Responsive height
+        : 300
+    },
     sensitivity: 150,
     randomRotation: true,
     sendToBackOnClick: true,
@@ -311,32 +318,32 @@ const CustomPage = ({
         subheading="Key Features"
         heading={`${heading.preText}${heading.highlightedText}${heading.postText}`}
       >
-        <div className="mx-auto max-w-7xl px-6 pb-32 pt-24">
-          <div className="mb-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-16 sm:pb-32 pt-12 sm:pt-24">
+          <div className="mb-8 sm:mb-16">
             <AnimatedTextUnderline
               preText={heading.preText}
               highlightedText={heading.highlightedText}
               postText={heading.postText}
-              className="!text-4xl md:!text-5xl lg:!text-6xl !text-white"  // Force white text
+              className="!text-3xl sm:!text-4xl md:!text-5xl lg:!text-6xl !text-white"
               animate={true}
               animationInterval={2000}
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-16 md:grid-cols-12">
-            <div className="col-span-1 md:col-span-5 space-y-6">
-              <p className="text-lg text-gray-300 leading-relaxed md:text-xl">  {/* Fixed text color */}
+          <div className="grid grid-cols-1 gap-8 md:gap-16 md:grid-cols-12">
+            <div className="col-span-1 md:col-span-5 space-y-4 sm:space-y-6">
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed md:text-xl">
                 {description}
               </p>
               
-              <div className="rounded-2xl bg-slate-800/50 p-6 backdrop-blur-sm">
-                <h3 className="mb-4 text-xl font-semibold text-white">  {/* Fixed heading color */}
+              <div className="rounded-2xl bg-slate-800/50 p-4 sm:p-6 backdrop-blur-sm">
+                <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-white">
                   Platform Highlights
                 </h3>
-                <ul className="space-y-3 text-gray-300">  {/* Fixed list text color */}
+                <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-300">
                   {highlights.map((highlight, index) => (
                     <li key={index} className="flex items-center">
-                      <span className="mr-2 text-teal-400">•</span>  {/* Adjusted bullet color */}
+                      <span className="mr-2 text-teal-400">•</span>
                       {highlight}
                     </li>
                   ))}
@@ -349,23 +356,25 @@ const CustomPage = ({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="absolute -top-12 right-8 z-10 transform rotate-2"
+                className="absolute -top-8 sm:-top-12 right-4 sm:right-8 z-10 transform rotate-2"
               >
-                <div className={`bg-${theme.primary}-500/10 backdrop-blur-sm rounded-lg px-4 py-2 border border-${theme.primary}-500/20`}>
-                  <p className={`text-${theme.primary}-400 text-sm font-medium flex items-center`}>
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <div className={`bg-${theme.primary}-500/10 backdrop-blur-sm rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 border border-${theme.primary}-500/20`}>
+                  <p className={`text-${theme.primary}-400 text-xs sm:text-sm font-medium flex items-center`}>
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd"/>
                     </svg>
-                    Try dragging the cards to explore!
+                    Try dragging the cards!
                   </p>
                 </div>
               </motion.div>
 
-              <Stack 
-                cardsData={features}
-                {...stackConfig}
-              />
+              <div className="w-full flex justify-center">
+                <Stack 
+                  cardsData={features}
+                  {...stackConfig}
+                />
+              </div>
             </div>
           </div>
         </div>

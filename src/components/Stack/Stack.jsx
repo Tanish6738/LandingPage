@@ -44,8 +44,12 @@ export default function Stack({
   randomRotation = false,
   sensitivity = 200,
   cardDimensions = {
-    width: typeof window !== 'undefined' ? Math.min(window.innerWidth - 32, 400) : 400,
-    height: typeof window !== 'undefined' ? Math.min(window.innerWidth * 0.75 - 32, 300) : 300
+    width: typeof window !== 'undefined' 
+      ? Math.min(window.innerWidth * 0.9, 400) // Reduced to 90% of viewport width
+      : 400,
+    height: typeof window !== 'undefined' 
+      ? Math.min(window.innerWidth * 0.6, 300) // Adjusted ratio for mobile
+      : 300
   },
   cardsData = [],
   animationConfig = { stiffness: 260, damping: 20 },
@@ -97,18 +101,19 @@ export default function Stack({
   };
 
   return (
-    <div className="flex flex-col items-center sm:items-start gap-4 sm:gap-8 w-full">
+    <div className="flex flex-col items-center gap-4 w-full px-4 sm:px-0">
       <div
-        className="relative mx-auto sm:mx-0"
+        className="relative"
         style={{
           width: cardDimensions.width,
           height: cardDimensions.height,
           perspective: 800,
+          maxWidth: '100%', // Ensure container doesn't overflow
         }}
       >
         {cards.map((card, index) => {
           const randomRotate = randomRotation
-            ? Math.random() * 8 - 4
+            ? Math.random() * 6 - 3 // Reduced rotation range for mobile
             : 0;
 
           return (
@@ -124,9 +129,9 @@ export default function Stack({
                   sendToBackOnClick && sendToBack(card.id);
                 }}
                 animate={{
-                  rotateZ: (cards.length - index - 1) * 4 + randomRotate,
-                  scale: 1 + index * 0.05 - cards.length * 0.05,
-                  transformOrigin: "90% 90%",
+                  rotateZ: (cards.length - index - 1) * 3 + randomRotate, // Reduced rotation
+                  scale: 1 + index * 0.03 - cards.length * 0.03, // Reduced scale difference
+                  transformOrigin: "center center", // Changed to center for better mobile display
                 }}
                 initial={false}
                 transition={{
@@ -135,8 +140,10 @@ export default function Stack({
                   damping: animationConfig.damping,
                 }}
                 style={{
-                  width: cardDimensions.width,
-                  height: cardDimensions.height,
+                  width: '100%', // Use percentage instead of fixed width
+                  height: '100%',
+                  maxWidth: cardDimensions.width,
+                  maxHeight: cardDimensions.height,
                   pointerEvents: 'auto', // Enable pointer events on container
                 }}
               >
@@ -153,17 +160,17 @@ export default function Stack({
         })}
       </div>
       <motion.div 
-        className="w-full max-w-md sm:max-w-full"
+        className="w-full max-w-[90vw] sm:max-w-md mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         key={activeCard.id}
         transition={{ duration: 0.5 }}
       >
-        <div className="rounded-xl bg-slate-800/50 p-4 sm:p-6 backdrop-blur-sm">
-          <h3 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-400 mb-2 sm:mb-4">
+        <div className="rounded-xl bg-slate-800/50 p-4 backdrop-blur-sm">
+          <h3 className="text-lg sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-400 mb-2">
             {activeCard.title}
           </h3>
-          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+          <p className="text-gray-300 text-sm sm:text-lg leading-relaxed">
             {activeCard.description}
           </p>
         </div>
