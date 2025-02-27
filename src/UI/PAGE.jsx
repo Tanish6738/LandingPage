@@ -298,11 +298,11 @@ const CustomPage = ({
   stackConfig = {
     cardDimensions: {
       width: typeof window !== 'undefined' 
-        ? Math.min(window.innerWidth * 0.85, 400) // Responsive width
-        : 400,
+        ? Math.min(window.innerWidth * 0.8, 350) // Reduced from 0.85 to 0.8 and max width to 350
+        : 350,
       height: typeof window !== 'undefined'
-        ? Math.min(window.innerWidth * 0.6, 300) // Responsive height
-        : 300
+        ? Math.min(window.innerWidth * 0.5, 250) // Reduced from 0.6 to 0.5 and max height to 250
+        : 250
     },
     sensitivity: 150,
     randomRotation: true,
@@ -369,11 +369,13 @@ const CustomPage = ({
                 </div>
               </motion.div>
 
-              <div className="w-full flex justify-center">
-                <Stack 
-                  cardsData={features}
-                  {...stackConfig}
-                />
+              <div className="w-full flex justify-center px-2 sm:px-4">
+                <div className="max-w-[280px] sm:max-w-none w-full">
+                  <Stack 
+                    cardsData={features}
+                    {...stackConfig}
+                  />
+                </div>
               </div>
             </div>
           </div>
