@@ -8,11 +8,12 @@ export const TextParallaxContent = ({ imgUrl, subheading, heading, children }) =
   return (
     <div
       style={{
-        paddingLeft: IMG_PADDING,
-        paddingRight: IMG_PADDING,
+        paddingLeft: `max(${IMG_PADDING}px, env(safe-area-inset-left))`,
+        paddingRight: `max(${IMG_PADDING}px, env(safe-area-inset-right))`,
       }}
+      className="w-full overflow-hidden"
     >
-      <div className="relative h-[150vh]">
+      <div className="relative h-[120vh] sm:h-[150vh]">
         <StickyImage imgUrl={imgUrl} />
         <OverlayCopy heading={heading} subheading={subheading} />
       </div>
@@ -88,12 +89,12 @@ const OverlayCopy = ({ subheading, heading }) => {
         opacity,
       }}
       ref={targetRef}
-      className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center text-white"
+      className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center text-white px-4"
     >
-      <p className="mb-2 text-center text-xl md:mb-4 md:text-3xl">
+      <p className="mb-2 text-center text-lg sm:text-xl md:text-3xl md:mb-4">
         {subheading}
       </p>
-      <p className="text-center text-4xl font-bold md:text-7xl">{heading}</p>
+      <p className="text-center text-2xl sm:text-4xl md:text-7xl font-bold">{heading}</p>
     </motion.div>
   );
 };

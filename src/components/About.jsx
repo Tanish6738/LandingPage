@@ -11,10 +11,10 @@ const About = () => {
   })
 
   const stats = [
-    { id: 1, name: 'Active Users', value: '50K+' },
-    { id: 2, name: 'Code Snippets Shared', value: '1M+' },
-    { id: 3, name: 'Teams Collaborating', value: '10K+' },
-    { id: 4, name: 'Countries Reached', value: '150+' },
+    { id: 1, name: 'Code Storage', value: 'Unlimited' },
+    { id: 2, name: 'Online IDE', value: 'Built-in' },
+    { id: 3, name: 'AI Integration', value: 'Gemini API' },
+    { id: 4, name: 'Collaboration', value: 'Real-time' },
   ]
 
   return (
@@ -24,9 +24,9 @@ const About = () => {
           {/* Left Column - Content */}
           <div className="max-w-2xl">
             <AnimatedTextUnderlign
-              preText="Why Choose "
-              highlightedText="CodeShare"
-              postText="?"
+              preText="About "
+              highlightedText="The Project"
+              postText=""
               className="!text-3xl md:!text-4xl lg:!text-5xl !text-white mb-8"
               animate={true}
               animationInterval={2000}
@@ -39,24 +39,25 @@ const About = () => {
               transition={{ duration: 0.6 }}
               className="mt-6 text-lg leading-8 text-gray-300"
             >
-              CodeShare revolutionizes the way developers collaborate and share code. 
-              Our platform combines cutting-edge AI technology with intuitive collaboration 
-              tools to create a seamless development experience.
+              As an AI & ML undergraduate at IPS Academy Institute of Engineering and Science, 
+              I experienced firsthand the challenges of managing scattered code snippets. This platform 
+              was born from that need - a solution to help developers efficiently store, organize, and 
+              retrieve their code without the hassle of searching through local files.
             </motion.p>
 
             <div className="mt-10 max-w-xl space-y-8">
               {[
                 {
-                  heading: "AI-Powered Development",
-                  description: "Leverage advanced AI to write better code faster and more efficiently."
+                  heading: "Smart Code Management",
+                  description: "Upload, organize, and retrieve your code snippets with ease."
                 },
                 {
-                  heading: "Seamless Collaboration",
-                  description: "Work together in real-time with developers from around the world."
+                  heading: "Integrated Development",
+                  description: "Built-in online IDE for quick edits and testing, enhanced with Gemini API for AI-powered code generation."
                 },
                 {
-                  heading: "Enterprise Security",
-                  description: "Your code is protected with enterprise-grade security measures."
+                  heading: "Collaborative Features",
+                  description: "Work together in groups, share code, and maintain a centralized code repository."
                 }
               ].map((feature, index) => (
                 <motion.div

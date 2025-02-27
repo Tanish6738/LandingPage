@@ -5,34 +5,40 @@ import FlowingCarousel from '../UI/FlowingCarousel'
 
 const faqsData = [
   {
-    media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww", // Replace with actual video URL
+    media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww",
+    type: "image",
+    question: "What problem does this platform solve?",
+    answer: "It addresses the common issue of losing track of valuable code snippets by providing an organized, cloud-based system to store, manage, and retrieve code effortlessly."
+  },
+  {
+    media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww",
+    type: "image",
+    question: "Who is this platform designed for?",
+    answer: "It's built for developers at all levels—from beginners struggling with code organization to experienced developers needing quick access to reusable code segments and collaborative tools."
+  },
+  {
+    media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww",
     type: "video",
-    question: "How does the AI code generation work?",
-    answer: "Our AI system analyzes patterns from millions of code repositories to provide intelligent suggestions and autocompletions tailored to your coding style and project context."
+    question: "How does the AI-powered code generation work?",
+    answer: "Using the Gemini API, the platform can generate and explain code snippets based on your inputs, offering assistance in writing and understanding code faster."
   },
   {
     media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww",
     type: "image",
-    question: "What collaboration features are available?",
-    answer: "We offer real-time collaborative editing, shared workspaces, live chat, and integrated code review tools to make team development seamless."
+    question: "What makes this solution different from GitHub or CodePen?",
+    answer: "Unlike traditional platforms that require full repositories or often have unorganized code blocks, our tool lets you store individual snippets easily and organize them intuitively. It's designed specifically for snippet management, with added features like real-time collaboration and integrated testing."
   },
   {
     media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww",
     type: "image",
-    question: "How secure is the platform?",
-    answer: "We implement enterprise-grade security measures including end-to-end encryption, two-factor authentication, and regular security audits."
+    question: "Can I collaborate with others on this platform?",
+    answer: "Absolutely. You can create groups, invite members, and work on shared code libraries, making it a great tool for team projects or community learning."
   },
   {
     media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww",
     type: "image",
-    question: "Can I use it with my existing tools?",
-    answer: "Yes! Our platform integrates with popular IDEs, version control systems, and development tools to fit seamlessly into your workflow."
-  },
-  {
-    media: "https://plus.unsplash.com/premium_photo-1682689380891-9221b86883d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWklMjBnZW5lcmF0aW9ufGVufDB8fDB8fHww",
-    type: "image",
-    question: "What about version control?",
-    answer: "Our integrated version control system supports branching, merging, and conflict resolution with an intuitive interface."
+    question: "What extra functionalities are available?",
+    answer: "In addition to code storage and AI-assisted generation, you have access to an online IDE for testing, a blog system for community support, web scraping tools, and even PDF creation for documentation."
   }
 ];
 
