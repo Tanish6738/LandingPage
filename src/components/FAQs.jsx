@@ -44,27 +44,27 @@ const faqsData = [
 
 const FAQs = () => {
   return (
-    <div id="faqs" className="relative bg-gradient-to-b from-slate-900 to-slate-950 py-20">
+    <div id="faqs" className="relative bg-gradient-to-b from-slate-900 to-slate-950 py-16">
       <TextParallaxContent
         imgUrl="/fdss.mp4"
         subheading="Frequently Asked Questions"
       >
-        <div className="mx-auto max-w-[95%] px-4 pb-32 pt-24">
-          <div className="mb-16 text-center">
+        <div className="mx-auto max-w-7xl px-4 pb-20 pt-16">
+          <div className="mb-12 text-center">
             <AnimatedTextUnderlign
               preText="Common "
               highlightedText="Questions"
               postText=" Answered"
-              className="!text-4xl md:!text-5xl lg:!text-6xl !text-white"
+              className="!text-4xl md:!text-5xl lg:!text-6xl !text-white !font-bold"
               animate={true}
               animationInterval={2000}
             />
-            <p className="mt-6 text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto">
               Find answers to the most frequently asked questions about our platform and services
             </p>
           </div>
 
-          <div className="w-full max-w-5xl mx-auto">
+          <div className="w-full max-w-4xl mx-auto">
             <FlowingCarousel items={faqsData} />
           </div>
         </div>

@@ -13,11 +13,13 @@ export const TextParallaxContent = ({ imgUrl, subheading, heading, children }) =
       }}
       className="w-full overflow-hidden"
     >
-      <div className="relative h-[120vh] sm:h-[150vh]">
+      <div className="relative h-[100vh] sm:h-[120vh]">
         <StickyImage imgUrl={imgUrl} />
         <OverlayCopy heading={heading} subheading={subheading} />
       </div>
-      {children}
+      <div className="-mt-20 sm:-mt-32 relative z-10">
+        {children}
+      </div>
     </div>
   );
 };
